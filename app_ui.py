@@ -2,19 +2,29 @@ import streamlit as st
 import joblib
 import numpy as np
 
+# Load your model
 model = joblib.load("cyber_model.pkl")
 
 st.title("AI Cybersecurity Threat Detection System")
 
-packet_size = st.number_input("Packet Size")
-failed_logins = st.number_input("Failed Logins")
-request_frequency = st.number_input("Request Frequency")
+# Your 3 inputs
+packet_size = st.number_input("Packet Size", step=1)
+failed_logins = st.number_input("Failed Logins", step=1)
+request_freq = st.number_input("Request Frequency", step=1)
 
 if st.button("Predict"):
-    features = np.array([[packet_size, failed_logins, request_frequency]])
-    prediction = model.predict(features)
-
+    # Create an array of 41 zeros
+    full_features = np.zeros((1, 41))
+    
+    # Place your 3 inputs into the specific slots the model expects
+    # (Assuming these were the first three columns during training)
+    full_features[0, 0] = packet_size
+    full_features[0, 1] = failed_logins
+    full_features[0, 2] = request_freq
+    
+    prediction = model.predict(full_features)
+    
     if prediction[0] == 1:
-        st.error("🚨 ATTACK DETECTED")
+        st.error("⚠️ Threat Detected!")
     else:
-        st.success("✅ NORMAL ACTIVITY")
+        st.success("✅ No Threat Detected.")
