@@ -1,0 +1,24 @@
+venv
+__pycache__
+.env
+*.key
+auth_tokens.txt
+# Models
+*.pkl
+*.h5
+*.pt
+*.onnx
+
+# Data & Outputs
+data/
+outputs/
+*.csv
+*.json
+*.py[cod]
+*$py.class
+*.log
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
