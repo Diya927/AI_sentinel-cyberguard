@@ -4,7 +4,6 @@ __pycache__
 *.key
 auth_tokens.txt
 # Models
-*.pkl
 *.h5
 *.pt
 *.onnx
